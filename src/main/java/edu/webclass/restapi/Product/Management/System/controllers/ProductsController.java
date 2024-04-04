@@ -7,12 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.server.ResponseStatusException;
-
 import java.util.List;
-
-import static org.springframework.http.HttpStatus.NOT_FOUND;
-
 @RestController
 @RequestMapping("/api/v1/products")
 public class ProductsController {
@@ -22,7 +17,7 @@ public class ProductsController {
 
     @GetMapping("/list")
     public List<ProductDto> listAllProducts(){
-        return productService.findAllProducts().stream().map(product -> new ProductDto(product)).toList();
+        return productService.findAllProducts().stream().map(ProductDto::new).toList();
     }
 
     @PostMapping("/add")
@@ -33,7 +28,7 @@ public class ProductsController {
     public ResponseEntity<ProductDto> getProductById(@PathVariable("id") String id){
         Product product = productService.getProductById(id);
         if(product == null){
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(null);
         } else {
             return ResponseEntity.ok(new ProductDto(product));
         }
