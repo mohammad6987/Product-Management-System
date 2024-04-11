@@ -10,7 +10,7 @@ import java.util.List;
 
 import static org.springframework.http.HttpStatus.NOT_FOUND;
 
-@Service
+@Repository
 public class ProductRepository {
     public static ArrayList<Product> products= new ArrayList<>();
     public static int lastIndex=0;
@@ -35,7 +35,7 @@ public class ProductRepository {
 
     public Product getProductByName(String id){
         for (Product x : products) {
-            if(x.id.equals(id))
+            if(x.getId().equals(id))
                 return x;
         }
         return null;
