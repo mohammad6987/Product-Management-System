@@ -25,10 +25,10 @@ public class ProductsController {
         return productService.addProduct(title,brand,price);
     }
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable("id") String id){
+    public ResponseEntity<Object> getProductById(@PathVariable("id") String id){
         Product product = productService.getProductById(id);
         if(product == null){
-            return ResponseEntity.status(HttpStatus.I_AM_A_TEAPOT).body(null);
+            return new ResponseEntity<>("There isn't any product by this name", HttpStatus.NOT_FOUND);
         } else {
             return ResponseEntity.ok(new ProductDto(product));
         }
